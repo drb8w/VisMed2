@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{ebert2002augmented}
+D~Ebert, P~Brunet, and I~Navazo.
+\newblock An augmented fast marching method for computing skeletons and
+  centerlines.
+\newblock 2002.
+
+\bibitem{strzodka2004generalized}
+Robert Strzodka and Alexandru Telea.
+\newblock Generalized distance transforms and skeletons in graphics hardware.
+\newblock In {\em Proceedings of the Sixth Joint Eurographics-IEEE TCVG
+  conference on Visualization}, pages 221--230. Eurographics Association, 2004.
+
+\end{thebibliography}

@@ -4,7 +4,16 @@
 
 In this section we will focus on different surface visualization techniques.
 
+Roughly we can divide surface mesh generation into \emph{model-based} and \emph{model-free}.
 
+The model-based mesh generation makes some assumptions about the model, in our case about the vascular system.
+In paculiar it makes assumptions about the topological structure, the observed junctions and the profiles of vessels. The topological structure is mostly represented by a graph and limited to a tree like representation. Also the observed junctions often are limited to certain kinds of junctions like bifurcations. Finally the profiles of the vessels are simplified to circular or eliptical structures.
+All this simplifications and assumptions can help to speed up the process of surface generation, to make it more reliable or more visually pleasing or even transform the underlying data into more usable data for further processing. The downside is that model-based meshes do not resemble the underlying data as accurate as it could be done and also sometimes simplify the underlying data too much such that essential features are lost.
+Especially when diagnoses of vascular degenerations or similar detail based inspections need to be done model-based approaches may not provide enough vivid information of the underlying data.
+
+Here model-free mesh generation comes into play. The goal here is to retain as much of the underlying data as possible. But without a underlying model the extraction and creation of the mesh is more time consuming and cumbersome. Moreover unwanted results can arise if the underlying data suffers from noise or other failures in capturing. So care must be taken at the decision what for data is extracted and finally represented in the resulting mesh.
+
+From the literature observed we determined that most of the methods require at some points a skeletonization of the underlying data. For now we assume that the underlying data consists of a voxel model that represents a density field of captured values. As model-based methods require a model, all of the observed methods require an extraction of a skeleton prior to the actual mesh generation. In regards of skeletonization the interested reader is reffered to \cite{ebert2002augmented} or \cite{strzodka2004generalized}.
 
 
 
