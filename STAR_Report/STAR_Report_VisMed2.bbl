@@ -12,4 +12,10 @@ Robert Strzodka and Alexandru Telea.
 \newblock In {\em Proceedings of the Sixth Joint Eurographics-IEEE TCVG
   conference on Visualization}, pages 221--230. Eurographics Association, 2004.
 
+\bibitem{volkau2005geometric}
+Ihar Volkau, Weili Zheng, Rafail Baimouratov, Aamer Aziz, and Wieslaw~Lucjan
+  Nowinski.
+\newblock Geometric modeling of the human normal cerebral arterial system.
+\newblock {\em IEEE transactions on medical imaging}, 24(4):529--539, 2005.
+
 \end{thebibliography}
