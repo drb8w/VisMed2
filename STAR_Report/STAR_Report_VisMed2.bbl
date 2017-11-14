@@ -1,10 +1,21 @@
 \begin{thebibliography}{1}
 
+\bibitem{bommes2009mixed}
+David Bommes, Henrik Zimmer, and Leif Kobbelt.
+\newblock Mixed-integer quadrangulation.
+\newblock {\em ACM Transactions On Graphics (TOG)}, 28(3):77, 2009.
+
 \bibitem{ebert2002augmented}
 D~Ebert, P~Brunet, and I~Navazo.
 \newblock An augmented fast marching method for computing skeletons and
   centerlines.
 \newblock 2002.
+
+\bibitem{sibbing2012topology}
+Dominik Sibbing, Hans-Christian Ebke, Kai~Ingo Esser, and Leif Kobbelt.
+\newblock Topology aware quad dominant meshing for vascular structures.
+\newblock In {\em Workshop on Mesh Processing in Medical Image Analysis}, pages
+  147--158. Springer, 2012.
 
 \bibitem{strzodka2004generalized}
 Robert Strzodka and Alexandru Telea.

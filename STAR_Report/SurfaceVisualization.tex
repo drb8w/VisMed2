@@ -22,6 +22,7 @@ A connected graph is established that captures also the blood flow direction. Th
 	\centering
 	\includegraphics[width=0.8\textwidth]{./Images/B-subdivision_refinement.png} \\
 	\caption{Example of refinement with B-subdivision.}
+	\cite{volkau2005geometric}
 	\label{fig:B-subdivision_refinement}
 \end{figure}
 
@@ -32,8 +33,31 @@ Further problems mentioned are 'oversampling' or unrealistic sampling of bifurca
 	\centering
 	\includegraphics[width=0.8\textwidth]{./Images/Fold_of_vessel.png} \\
 	\caption{Fold of vessel when curvature is higher than tube radius.}
+	\cite{volkau2005geometric}
 	\label{fig:Fold_of_vessel}
 \end{figure}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Images/Estimate_thickness.png} \\
+	\caption{Estimation of thickness of graph edges.}
+	\cite{sibbing2012topology}
+	\label{fig:Estimate_thickness}
+\end{figure}
 
-Describe skeletonization, e.g Topology aware Quad Dominant Meshing p.4f
+Another geometry based modelling approach is provided by Sibbing et al.~\cite{sibbing2012topology}.
+His work is focusing on quad meshes as they are visually more pleasant, require fewer elements and can produce more stable results in further processing, like FEM. Here the topologically correct extraction of the branching structure is done from a post-processed triangle mesh that is generated from an adapted \emph{Marching Cubes} algorithm based on the interior voxels which are identified via a variant of the \emph{Level Set} method. The extracted mesh is shrinked to a close to one dimensional structure that serves as basis for a tree based graph as well as for radius estimation along its edges, see figure \ref{fig:Estimate_thickness}. Further the graph is used to subdivide the triangle mesh into tubular parts and parts with one or more furcations with appropriate placed cutting planes. The so called \emph{interfaces} are 2D polygons between adjacent segments. They are defined by the intersection of cutting planes with the triangular mesh. 
+
+Quad meshes for the junctions are created with the \emph{Mixed Integer Quadrangulation} by Bommes et al.~\cite{bommes2009mixed}. The quads are just required to align with the defined boundary to generate radially arranged quads.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Images/Remeshing_stage.png} \\
+	\caption{ (a) The input to our remeshing stage is a smoothed and resampled version of the mesh extracted using the Marching Cubes Algorithm. (b) The mesh is partitioned into junction and tube components. The cuts insert additional vertices at the respective interfaces. (c) We remesh the junctions yielding a fair quad layout. (d) Tubes are remeshed, such that the final mesh is a quad dominant mesh.}
+	\cite{sibbing2012topology}
+	\label{fig:Remeshing_stage}
+\end{figure}
+
+Tubes now only have to provide a smooth transition between two interfaces with a possibly different number of vertices. The rings of the tubes are generated out of equidistant iso-contours on the harmonic scalar field on the tube. Triangles are introduced between so called transition rings to compensate for the difference in vertices. The distribution of the transition rings as well as the distribution of the triangles around the tube in a transition case is done via adaption of the Bresenham line rasterizaion algorithm. Stretching of quads along the tube axis as well as rotations of the rings to get configurations with almost $90$ degree angles in the quads, yields close to optimal quad dominant meshes. The advantage of this reconstruction is the smoothing of unwanted artifacts on the original triangle mesh as well as the already shown properties of quad meshes, see figure \ref{fig:Remeshing_stage}.
+
+%Describe skeletonization, e.g Topology aware Quad Dominant Meshing p.4f
