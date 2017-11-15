@@ -11,6 +11,20 @@ D~Ebert, P~Brunet, and I~Navazo.
   centerlines.
 \newblock 2002.
 
+\bibitem{kretschmer2012reliable}
+Jan Kretschmer, Thomas Beck, Christian Tietjen, Bernhard Preim, and Marc
+  Stamminger.
+\newblock Reliable adaptive modelling of vascular structures with non-circular
+  cross-sections.
+\newblock In {\em Computer Graphics Forum}, volume~31, pages 1055--1064. Wiley
+  Online Library, 2012.
+
+\bibitem{oeltze2005visualization}
+Steffen OELTZE and Bernhard PREIM.
+\newblock Visualization of vasculature with convolution surfaces: Method,
+  validation and evaluation.
+\newblock {\em IEEE transactions on medical imaging}, 24(4):540--548, 2005.
+
 \bibitem{sibbing2012topology}
 Dominik Sibbing, Hans-Christian Ebke, Kai~Ingo Esser, and Leif Kobbelt.
 \newblock Topology aware quad dominant meshing for vascular structures.

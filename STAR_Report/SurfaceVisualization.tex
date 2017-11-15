@@ -61,3 +61,27 @@ Quad meshes for the junctions are created with the \emph{Mixed Integer Quadrangu
 Tubes now only have to provide a smooth transition between two interfaces with a possibly different number of vertices. The rings of the tubes are generated out of equidistant iso-contours on the harmonic scalar field on the tube. Triangles are introduced between so called transition rings to compensate for the difference in vertices. The distribution of the transition rings as well as the distribution of the triangles around the tube in a transition case is done via adaption of the Bresenham line rasterizaion algorithm. Stretching of quads along the tube axis as well as rotations of the rings to get configurations with almost $90$ degree angles in the quads, yields close to optimal quad dominant meshes. The advantage of this reconstruction is the smoothing of unwanted artifacts on the original triangle mesh as well as the already shown properties of quad meshes, see figure \ref{fig:Remeshing_stage}.
 
 %Describe skeletonization, e.g Topology aware Quad Dominant Meshing p.4f
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/Branching_ConvolutionSurfaces.png} \\
+	\caption{Transition at branching.}
+	\cite{oeltze2005visualization}
+	\label{fig:Branching_ConvolutionSurfaces}
+\end{figure}
+
+In contrast model-free mesh generation mostly rely on some implicit functions that should resemble the input data instead of explicit constructive reasoning in geometric elements like tubes and junctions. Also here there are different techniques that respect the original shape more or less. 
+A technique that uses the vessel skeleton as input data but only respects the diameter information at the provided graph is called \emph{convolution surfaces}. The main idea is that \emph{implicit surfaces} describe the original surface by equations to model smooth, deformable objects. Oeltze et al.~\cite{oeltze2005visualization} used a combination of so called 'blobs' to model an \emph{iso-surface} out of this scalar field function.
+The resulting convolution surface is a surface of an object around its skeleton. The convolution itself is done on an integral of 'blob-functions' along the skeleton. It is actually the modification of a signal by a filter, in this case a Gaussian filter. To speed up the process filter functions with finite support are used and the scalar field is only computed within certain bounding volumes around the line segments. Unwanted blending at branchings is avoided by more narrow filter kernels, see figure \ref{fig:Branching_ConvolutionSurfaces}. Blending between segments that are close but not connected is avoided by restricted support on the skeleton, see figure \ref{fig:Blending_ConvolutionSurfaces}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/Blending_ConvolutionSurfaces.png} \\
+	\caption{Unwanted blending.}
+	\cite{oeltze2005visualization}
+	\label{fig:Blending_ConvolutionSurfaces}
+\end{figure}
+
+Still the problems of convolution surfaces are that they only support a circular base shape at tubes, that unwanted bulging can be supressed but not completely removed and that unwanted blending of close parts is still possible. Finally the end segments have always the shape of a half sphere which neither represents the normally open ends of vascular trees nor has low deviation from the original surface in that areas.
+
+To capture vascular profiles and open endings of vascular structures better Kretschmer et al.~\cite{kretschmer2012reliable} uses an adaptive modelling with non circualr cross sections. 
