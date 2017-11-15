@@ -70,7 +70,6 @@ Tubes now only have to provide a smooth transition between two interfaces with a
 	\label{fig:Branching_ConvolutionSurfaces}
 \end{figure}
 
-In contrast model-free mesh generation mostly rely on some implicit functions that should resemble the input data instead of explicit constructive reasoning in geometric elements like tubes and junctions. Also here there are different techniques that respect the original shape more or less. 
 A technique that uses the vessel skeleton as input data but only respects the diameter information at the provided graph is called \emph{convolution surfaces}. The main idea is that \emph{implicit surfaces} describe the original surface by equations to model smooth, deformable objects. Oeltze et al.~\cite{oeltze2005visualization} used a combination of so called 'blobs' to model an \emph{iso-surface} out of this scalar field function.
 The resulting convolution surface is a surface of an object around its skeleton. The convolution itself is done on an integral of 'blob-functions' along the skeleton. It is actually the modification of a signal by a filter, in this case a Gaussian filter. To speed up the process filter functions with finite support are used and the scalar field is only computed within certain bounding volumes around the line segments. Unwanted blending at branchings is avoided by more narrow filter kernels, see figure \ref{fig:Branching_ConvolutionSurfaces}. Blending between segments that are close but not connected is avoided by restricted support on the skeleton, see figure \ref{fig:Blending_ConvolutionSurfaces}.
 
@@ -84,4 +83,35 @@ The resulting convolution surface is a surface of an object around its skeleton.
 
 Still the problems of convolution surfaces are that they only support a circular base shape at tubes, that unwanted bulging can be supressed but not completely removed and that unwanted blending of close parts is still possible. Finally the end segments have always the shape of a half sphere which neither represents the normally open ends of vascular trees nor has low deviation from the original surface in that areas.
 
-To capture vascular profiles and open endings of vascular structures better Kretschmer et al.~\cite{kretschmer2012reliable} uses an adaptive modelling with non circualr cross sections. 
+In contrast model-free mesh generation mostly rely on some implicit functions that should resemble the input data instead of explicit constructive reasoning in geometric elements like tubes and junctions. Also here there are different techniques that respect the original shape more or less. Convolution surfaces therefore form a bridge between model-based and model-free mesh generation as the technique already use an implicit function but limit the shape in a model-based fashion.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Images/ReconstructionFreeFormContours.png} \\
+	\caption{Reconstruction of an arterial tree from free-form contours.}
+	\cite{kretschmer2012reliable}
+	\label{fig:ReconstructionFreeFormContours}
+\end{figure} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Images/IntersectingContours.png} \\
+	\caption{Mapping of neighboring free-form contour pairs to normalized shapes.}
+	\cite{kretschmer2012reliable}
+	\label{fig:IntersectingContours}
+\end{figure} 
+
+To capture vascular profiles and open endings of vascular structures Kretschmer et al.~\cite{kretschmer2012reliable} uses an adaptive modelling with non circualr cross sections. He generates intersection-free surfaces from centerlines with complex outlines, see fituge \ref{fig:ReconstructionFreeFormContours}. He decomposes the centerline description into segments which are locally described by implicit functions and combines them using boolean operations. In this fashion all intersection- and furcation-related issues are solved in similar fahsion to convolution surfaces with the difference that the capturing of the vascular outline is not so limited. A watertight scale-adaptive mesh is generated out of an adaptive octree in the end. The key difference to CS is that the so called \emph{admissible distance functions} (ADFs) just form a class of functions with the property to detect valid iso-surfaces. To find a topology-preserving mapping that forms a intersection free surface part between two adjacent countours on the vascular structure found by the ADFs they follow the idea of \emph{thin plate splines}. The assignment of contour pairs to a limited set of target shapes guarantee a valid surface topology when the contours do not touch, touch or penetrate each other as shown in figure \ref{fig:IntersectingContours}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./Images/BisectionMethod.png} \\
+	\caption{Improved root-finding of the iso-surface using bisection method.}
+	\cite{kretschmer2012reliable}
+	\label{fig:BisectionMethod}
+\end{figure} 
+
+The octree that should capture also the smallest vessels is recursivly subdivided at surface intersections with the grid. To speed up queries on the octree a localized approximation of the implicit function with a certain treshold to safely prune cells is used.
+To improve the quality of the extracted mesh a bisection method is used to interpolate between values when marching cubes is applied, advantages of this scheme is shown in figure \ref{fig:BisectionMethod}.
+
+ 
