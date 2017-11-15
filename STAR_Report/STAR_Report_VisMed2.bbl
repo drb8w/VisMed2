@@ -43,4 +43,9 @@ Ihar Volkau, Weili Zheng, Rafail Baimouratov, Aamer Aziz, and Wieslaw~Lucjan
 \newblock Geometric modeling of the human normal cerebral arterial system.
 \newblock {\em IEEE transactions on medical imaging}, 24(4):529--539, 2005.
 
+\bibitem{wu2010scale}
+Jianhuang Wu, Mingqiang Wei, Yonghong Li, Xin Ma, Fucang Jia, and Qingmao Hu.
+\newblock Scale-adaptive surface modeling of vascular structures.
+\newblock {\em Biomedical engineering online}, 9(1):75, 2010.
+
 \end{thebibliography}
