@@ -5,7 +5,7 @@
 In this section we will focus on different surface visualization techniques. Roughly we can divide surface mesh generation into \emph{model-based} and \emph{model-free}.
 
 The model-based mesh generation makes some assumptions about the model, in our case about the vascular system.
-In paculiar it makes assumptions about the topological structure, the observed junctions and the profiles of vessels. The topological structure is mostly represented by a graph and limited to a tree like representation. Also the observed junctions often are limited to certain kinds of junctions like bifurcations. Finally the profiles of the vessels are simplified to circular or eliptical structures.
+In peculiar it makes assumptions about the topological structure, the observed junctions and the profiles of vessels. The topological structure is mostly represented by a graph and limited to a tree like representation. Also the observed junctions often are limited to certain kinds of junctions like bifurcations. Finally the profiles of the vessels are simplified to circular or elliptical structures.
 All this simplifications and assumptions can help to speed up the process of surface generation, to make it more reliable or more visually pleasing or even transform the underlying data into more usable data for further processing. The downside is that model-based meshes do not resemble the underlying data as accurate as it could be done and also sometimes simplify the underlying data too much such that essential features are lost.
 Especially when diagnoses of vascular degenerations or similar detail based inspections need to be done model-based approaches may not provide enough vivid information of the underlying data.
 
@@ -16,7 +16,7 @@ From the literature observed we determined that most of the methods require at s
 As seen model-based mesh generation is based more or less on geometrical assumptions and reasoning on the model.
 Volkau et al.~\cite{volkau2005geometric} for instance models a cerebral arterial model from segmented and skeletonized angiographic data. He constructs a vascular structure consisting of tube segments and bifurcations, so this model-based approach limits the domain of representable data quite hard in regards of branching possibilites. The centerline is smoothed with a sliding average filter to prevent problems with outliers and the two kinds of topologies, namely tubular and B-Subdivison based ones, are combined to form the complete vessel structure.
 
-A connected graph is established that captures also the blood flow direction. This is done by splitting it up into two connected tree structures where one is designated as inflow structure. The model shapes the tube segments with decreasing radius with respect to the bloodflow as well as it captures radii change at bifurcations. This is based on statistical data. Radii at bifurcations are approximated with an exponential function whrereas radii evolution at tubular parts are done via linear regression. At connection points C1 continuity is established via further constraints. So no abnormal cross section shape or diameter will show up easily in the final result.
+A connected graph is established that captures also the blood flow direction. This is done by splitting it up into two connected tree structures where one is designated as inflow structure. The model shapes the tube segments with decreasing radius with respect to the bloodflow as well as it captures radii change at bifurcations. This is based on statistical data. Radii at bifurcations are approximated with an exponential function whereas radii evolution at tubular parts are done via linear regression. At connection points C1 continuity is established via further constraints. So no abnormal cross section shape or diameter will show up easily in the final result.
 
 \begin{figure}[h]
 	\centering
@@ -27,7 +27,7 @@ A connected graph is established that captures also the blood flow direction. Th
 \end{figure}
 
 The bifurcations themselves are constructed based on B-subdivison. The generation of quadrangles of a bifurcation till the overlapping internal part is shown in figure \ref{fig:B-subdivision_refinement}. Internal parts are subdivided to fit the outer subdivison. Problems with this scheme arise when all three vessels at the bifurcation form a close to orthogonal connection, where the inner face will be undefined. Also the B-subdivision of tubular segments show problems, namely self intersections when the radius of of curvature is smaller than the radius of the tube, shown in figure \ref{fig:Fold_of_vessel}.
-Further problems mentioned are 'oversampling' or unrealistic sampling of bifurcations according to a too croase sample pattern or problems with centerline smoothing in very jaggy areas as an acceptable smoothing also will remove esential features of the unterlying vascular structure.  
+Further problems mentioned are 'oversampling' or unrealistic sampling of bifurcations according to a too coarse sample pattern or problems with centerline smoothing in very jaggy areas as an acceptable smoothing also will remove esential features of the underlying vascular structure.  
 
 \begin{figure}[h]
 	\centering
@@ -58,7 +58,7 @@ Quad meshes for the junctions are created with the \emph{Mixed Integer Quadrangu
 	\label{fig:Remeshing_stage}
 \end{figure}
 
-Tubes now only have to provide a smooth transition between two interfaces with a possibly different number of vertices. The rings of the tubes are generated out of equidistant iso-contours on the harmonic scalar field on the tube. Triangles are introduced between so called transition rings to compensate for the difference in vertices. The distribution of the transition rings as well as the distribution of the triangles around the tube in a transition case is done via adaption of the Bresenham line rasterizaion algorithm. Stretching of quads along the tube axis as well as rotations of the rings to get configurations with almost $90$ degree angles in the quads, yields close to optimal quad dominant meshes. The advantage of this reconstruction is the smoothing of unwanted artifacts on the original triangle mesh as well as the already shown properties of quad meshes, see figure \ref{fig:Remeshing_stage}.
+Tubes now only have to provide a smooth transition between two interfaces with a possibly different number of vertices. The rings of the tubes are generated out of equidistant iso-contours on the harmonic scalar field on the tube. Triangles are introduced between so called transition rings to compensate for the difference in vertices. The distribution of the transition rings as well as the distribution of the triangles around the tube in a transition case is done via adaption of the Bresenham line rasterization algorithm. Stretching of quads along the tube axis as well as rotations of the rings to get configurations with almost $90$ degree angles in the quads, yields close to optimal quad dominant meshes. The advantage of this reconstruction is the smoothing of unwanted artifacts on the original triangle mesh as well as the already shown properties of quad meshes, see figure \ref{fig:Remeshing_stage}.
 
 %Describe skeletonization, e.g Topology aware Quad Dominant Meshing p.4f
 
@@ -81,7 +81,7 @@ The resulting convolution surface is a surface of an object around its skeleton.
 	\label{fig:Blending_ConvolutionSurfaces}
 \end{figure}
 
-Still the problems of convolution surfaces are that they only support a circular base shape at tubes, that unwanted bulging can be supressed but not completely removed and that unwanted blending of close parts is still possible. Finally the end segments have always the shape of a half sphere which neither represents the normally open ends of vascular trees nor has low deviation from the original surface in that areas.
+Still the problems of convolution surfaces are that they only support a circular base shape at tubes, that unwanted bulging can be suppressed but not completely removed and that unwanted blending of close parts is still possible. Finally the end segments have always the shape of a half sphere which neither represents the normally open ends of vascular trees nor has low deviation from the original surface in that areas.
 
 In contrast model-free mesh generation mostly rely on some implicit functions that should resemble the input data instead of explicit constructive reasoning in geometric elements like tubes and junctions. Also here there are different techniques that respect the original shape more or less. Convolution surfaces therefore form a bridge between model-based and model-free mesh generation as the technique already use an implicit function but limit the shape in a model-based fashion.
 
@@ -101,7 +101,7 @@ In contrast model-free mesh generation mostly rely on some implicit functions th
 	\label{fig:IntersectingContours}
 \end{figure} 
 
-To capture vascular profiles and open endings of vascular structures Kretschmer et al.~\cite{kretschmer2012reliable} uses an adaptive modelling with non circualr cross sections. He generates intersection-free surfaces from centerlines with complex outlines, see fituge \ref{fig:ReconstructionFreeFormContours}. He decomposes the centerline description into segments which are locally described by implicit functions and combines them using boolean operations. In this fashion all intersection- and furcation-related issues are solved in similar fahsion to convolution surfaces with the difference that the capturing of the vascular outline is not so limited. A watertight scale-adaptive mesh is generated out of an adaptive octree in the end. The key difference to CS is that the so called \emph{admissible distance functions} (ADFs) just form a class of functions with the property to detect valid iso-surfaces. To find a topology-preserving mapping that forms a intersection free surface part between two adjacent countours on the vascular structure found by the ADFs they follow the idea of \emph{thin plate splines}. The assignment of contour pairs to a limited set of target shapes guarantee a valid surface topology when the contours do not touch, touch or penetrate each other as shown in figure \ref{fig:IntersectingContours}.
+To capture vascular profiles and open endings of vascular structures Kretschmer et al.~\cite{kretschmer2012reliable} uses an adaptive modelling with non circular cross sections. He generates intersection-free surfaces from centerlines with complex outlines, see fituge \ref{fig:ReconstructionFreeFormContours}. He decomposes the centerline description into segments which are locally described by implicit functions and combines them using boolean operations. In this fashion all intersection- and furcation-related issues are solved in similar fashion to convolution surfaces with the difference that the capturing of the vascular outline is not so limited. A watertight scale-adaptive mesh is generated out of an adaptive octree in the end. The key difference to CS is that the so called \emph{admissible distance functions} (ADFs) just form a class of functions with the property to detect valid iso-surfaces. To find a topology-preserving mapping that forms a intersection free surface part between two adjacent contours on the vascular structure found by the ADFs they follow the idea of \emph{thin plate splines}. The assignment of contour pairs to a limited set of target shapes guarantee a valid surface topology when the contours do not touch, touch or penetrate each other as shown in figure \ref{fig:IntersectingContours}.
 
 \begin{figure}[h]
 	\centering
@@ -111,13 +111,13 @@ To capture vascular profiles and open endings of vascular structures Kretschmer 
 	\label{fig:BisectionMethod}
 \end{figure} 
 
-The octree that should capture also the smallest vessels is recursivly subdivided at surface intersections with the grid. To speed up queries on the octree a localized approximation of the implicit function with a certain treshold to safely prune cells is used.
+The octree that should capture also the smallest vessels is recursivly subdivided at surface intersections with the grid. To speed up queries on the octree a localized approximation of the implicit function with a certain threshold to safely prune cells is used.
 To improve the quality of the extracted mesh a bisection method is used to interpolate between values when marching cubes is applied, advantages of this scheme is shown in figure \ref{fig:BisectionMethod}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.4\textwidth]{./Images/Pipeline.png} \\
-	\caption{Pipeline of geoemtric modeling of vascular tree structures.}
+	\caption{Pipeline of geometric modeling of vascular tree structures.}
 	\cite{wu2010scale}
 	\label{fig:Pipeline}
 \end{figure} 
@@ -145,5 +145,5 @@ To reconstruct very thin vessel structures an adaptive point extraction is used 
 	\label{fig:TriangleQuality}
 \end{figure} 
 
-The polygonization is done by an advancing front algorithm utilizing Newton step method. Care has benn taken to ensure that the minimal angle of triangles is maximized in the triangulation step. The resulting gap on the surface is then closed via a stiching operation, see figure \ref{fig:Polygonization}. Also here the patching triangles are subdivided to a similar size than the surrounding ones. To further refine and smooth the mesh a Loop based subdivison is performed.
+The polygonization is done by an advancing front algorithm utilizing Newton step method. Care has been taken to ensure that the minimal angle of triangles is maximized in the triangulation step. The resulting gap on the surface is then closed via a stitching operation, see figure \ref{fig:Polygonization}. Also here the patching triangles are subdivided to a similar size than the surrounding ones. To further refine and smooth the mesh a Loop based subdivison is performed.
 A comparison of several methods is shown in figure \ref{fig:TriangleQuality}. It can be seen that the scale-adaptive nature of the reconstructed mesh together with the smooth and but still good approximation of the underlying shape yields very good results on vascular structures. 
