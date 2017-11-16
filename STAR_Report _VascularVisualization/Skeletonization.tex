@@ -35,7 +35,7 @@ As this approach do only respect the maximum distance from the boundary in the t
 	\label{fig:LeafTilingAndDistanceTransform}
 \end{figure} 
 
-Strzodka et al.~\cite{strzodka2004generalized} further accelerates the generation of the 2D skeleton using graphics hardware. Based on the concept of footprint splatting the combination of different spalts produces a weighted distance transform in real time. \emph{Distance splatting} uses OpenGL fragments to propagate signals in the \emph{feature distance transform} (FDT). The FDT follows the previously described concept that skeletons are defined as the set of centers of maximal balls contained in the boundary of the observed object. Tiling of the original object further speeds up the process. Results are pixel-level correct skeletons for all boundaries and thresholds, as shown in figure \ref{fig:LeafTilingAndDistanceTransform}.
+Strzodka et al.~\cite{strzodka2004generalized} further accelerates the generation of the 2D skeleton using graphics hardware. Based on the concept of \emph{footprint splatting} the combination of different spalts produces a weighted distance transform in real time. \emph{Distance splatting} uses OpenGL fragments to propagate signals in the \emph{feature distance transform} (FDT). The FDT follows the previously described concept that skeletons are defined as the set of centers of maximal balls contained in the boundary of the observed object. Tiling of the original object further speeds up the process. Results are pixel-level correct skeletons for all boundaries and thresholds, as shown in figure \ref{fig:LeafTilingAndDistanceTransform}.
 
 
 % reduction of one dimension 
