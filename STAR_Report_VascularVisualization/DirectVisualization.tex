@@ -84,7 +84,12 @@ Another feature of the technique is to display a measure of stability of the cen
 \subsection*{Depth Cues for Direct Volume Rendering}
 
 Kersten-Oertel et al.~\cite{kersten2014evaluation} provide an extensive evaluation of monoscopic depth cues used in real time renderings of 3D angiographic data. The fast and accurate perception of relative depth and structure of overlapping vessels is essential for intraoperative guidance, where surgeons often have little time to make important decisions. The study compares the effectiveness of fog (mapping of depth to saturation), pseudo-chromadepth (mapping depth to color from red to blue), kinetic depth (depth by continuous rotation around the structure), edges as well as stereopsis (using shutter glasses). 
-
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.45\textwidth]{depth_cues.jpg}
+  \caption{\label{fig:depthCues} Overview of the evaluated monoscopic depth cues.}
+  \cite{mistelbauer2013vessel}
+\end{figure}
 The authors note a number of limitations of the operating room. Interaction with the data (which can provide depth cues via the parallax effect apparent from the movement) are typically not possible due to the need for sterility. The surgeon typically needs to verbally instruct an assistant to do the interaction via mouse and keyboard, thus making real time interaction unfeasable. Moreover, head mounted displays to provide stereopsis are typically not acceptable due to operating room constraints. Thus monoscopic depth cues play an important role.
 
 The study shows results of experiments where participants had to state which of two vessels is closer, for each of the depth cues and with all possibly influencing parameters randomized.
