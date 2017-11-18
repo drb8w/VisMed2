@@ -18,6 +18,7 @@ A more recent approach in the design of transfer functions, by Bruckner and Gr{\
   \centering
   \includegraphics[width=0.45\textwidth]{mida_ray_profiles.png}
   \caption{\label{fig:midaRayProfiles} Ray profiles for DVR, MIDA and MIP.}
+  \cite{bruckner2009instant}
 \end{figure}
 Using a single control parameter, the user can switch between more accumulation (more like DVR) or more emphasis of maxima (more like MIP), as seen in Figure~\ref{fig:midaVasculature}. MIDA thus presents a unifying method of both traditional DVR and MIP via a simple extension.
 Bruckner and Gr{\"o}ller also enhance the technique with gradient based shading, a common technique used in DVR, and weight the contribution of the shading by the magnitude of the gradient to avoid noise in homogenous regions.
@@ -26,6 +27,7 @@ Bruckner and Gr{\"o}ller also enhance the technique with gradient based shading,
   \centering
   \includegraphics[width=1.0\textwidth]{mida_vasculature.jpg}
   \caption{\label{fig:midaVasculature} Maximum Intensity Difference Accumulation provides a technique that unifies both traditional DVR and MIP. Using a single control parameter, the user can switch between more accumulation (more like DVR) or more emphasis of maxima (more like MIP).}
+  \cite{bruckner2009instant}
 \end{figure*}
 
 While MIDA proves very useful for the visualization of vascular structures, it is still a very general technique. Other techniques are tailored more towards specific diagnostic tasks, such as the visual emphasis of pathological structures. Glasser et al.~\cite{glasser2010automatic} present a method that aids the quantitative evaluation of coronary artery plaque via specialized transfer functions that are automatically adjusted to fit the segmented artery data. Specifically, their approach aims to emphasize the vessel wall and its abnormalities, like hard and soft plaques or stents. Initially, a segmentation of the coronary arteries is performed. Then, the mean and standard deviation of both blood and vessel wall are computed. This is however not as straightforward as it may seem, due to non-uniform contrast agent accumulation and differing Hounsfield (HU) units. To overcome this limitation, the authors compute an intensity profile volume (IPV) for each artery branch. Each IPV is a stack of histograms computed radially from vessel centerline positions in its orthogonal planes, as seen in Figure~\ref{fig:glasserIPV}. These histograms are then used to determine the local mean and standard deviations for blood and vessel wall.
@@ -33,17 +35,20 @@ While MIDA proves very useful for the visualization of vascular structures, it i
   \centering
   \includegraphics[width=0.45\textwidth]{glasser_intensity_profile_volume.jpg}
   \caption{\label{fig:glasserIPV} Computation of Intensity Profile Volumes to determine local blood and vessel wall intensity distribution of each branch.}
+  \cite{glasser2010automatic}
 \end{figure}
 The transfer function is designed in a way such that both the vessel wall and soft plaques as well as high intensity structures such as hard plaques are highlighted, as seen in Figure~\ref{fig:glasserTransferFunction}. The tresholds are set automatically corresponding to the computed local branch intensity distributions. Two thresholds, $S_3$ and $S_6$ can be adjusted by the user, determining the average vessel wall intensity and the threshold for hard plaque. Results can be seen in Figure~\ref{fig:glasserResult}.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.45\textwidth]{glasser_transfer_function.jpg}
   \caption{\label{fig:glasserTransferFunction} A transfer function that highlights vessel wall and hard plaques, automatically adjusted to local intensity distribution.}
+  \cite{glasser2010automatic}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.45\textwidth]{glasser_result.jpg}
   \caption{\label{fig:glasserResult} Results of the automatically adjusted transfer functions by Glasser et al.~\cite{glasser2010automatic} to highlight vessel wall and abnormalities such as plaques or stents.}
+  \cite{glasser2010automatic}
 \end{figure}
 
 \subsection*{Rotation Independent Projection Techniques for 2D Views}
@@ -55,20 +60,23 @@ Mistelbauer et al.~\cite{mistelbauer2010automated} present a technique called Ce
   \centering
   \includegraphics[width=0.45\textwidth]{cr_wavefront_propagation.jpg}
   \caption{\label{fig:crWavefrontPropagation} Results of the automatically adjusted transfer functions by Glasser et al.~\cite{glasser2010automatic} to highlight vessel wall and abnormalities such as plaques or stents.}
+  \cite{mistelbauer2010automated}
 \end{figure}
 Since vessels may overlap, the wavefront propagation requires a comparison of the currently stored pixel buffer at closest depth with the current vessel wavefront. Since a wavefront may also collide with itself leading to ambiguities in value assignment, the arc length, i.e. position along the centerline of pixels is also propagated and used for this decision.
 
-A different technique also presented by Mistelbauer et al.~\cite{mistelbauer2013vessel} is called Curvicircular Feature Aggregation (CFA). The idea of CFA is to reduce the amount of user interaction required when working with CPR angiography data, i.e. rotation around the vessel centerline to inspect it from all directions. CFA provides a single image where aggregated intensities around the vessel centerline are depicted. This is done by sampling intensities in circular rays around the assumed vessel centerline and aggregating the samples with MIP or MINIP, as shown in Figure~\ref{fig:ctaOverview}. Samples may be placed along the circular rays either at costant angles or constant arc-lengths, the latter providing more samples and thus also more computational overhead. The resulting image is split in two parts: The centerline is straightened and placed vertically from top to bottom, separating the image in left and right side. Thus the vertical dimension relates to the position along the centerline. The horizontal distance from the centerline corresponds to the radius of the circular rays: Each pixel at certain horizontal distance from the centerline shows the result of the aggregation around a circular ray with the corresponding radius. On the left side, MIP is used for the aggregation (or rather, projection), on the right side MINIP is used.
+A different technique also presented by Mistelbauer et al.~\cite{mistelbauer2013vessel} is called Curvicircular Feature Aggregation (CFA). The idea of CFA is to reduce the amount of user interaction required when working with CPR angiography data, i.e. rotation around the vessel centerline to inspect it from all directions. CFA provides a single image where aggregated intensities around the vessel centerline are depicted. This is done by sampling intensities in circular rays around the assumed vessel centerline and aggregating the samples with MIP or MINIP, as shown in Figure~\ref{fig:cfaOverview}. Samples may be placed along the circular rays either at costant angles or constant arc-lengths, the latter providing more samples and thus also more computational overhead. The resulting image is split in two parts: The centerline is straightened and placed vertically from top to bottom, separating the image in left and right side. Thus the vertical dimension relates to the position along the centerline. The horizontal distance from the centerline corresponds to the radius of the circular rays: Each pixel at certain horizontal distance from the centerline shows the result of the aggregation around a circular ray with the corresponding radius. On the left side, MIP is used for the aggregation (or rather, projection), on the right side MINIP is used.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.45\textwidth]{cta_result.jpg}
-  \caption{\label{fig:ctaResult} }
+  \includegraphics[width=0.45\textwidth]{cfa_result.jpg}
+  \caption{\label{fig:cfaResult} In the radius of the vessel, the CFA result is shown together with a color overlay indicating the centerline stability. At larger radii, traditional MIP and MINIP is used to provide context.}
+  \cite{mistelbauer2013vessel}
 \end{figure}
-For radii that by far exceed the vessel radius, there is no point in doing the curvicircular feature aggregation. Instead, standard MIP and MINIP projections from a single direction are shown in pixels beyond a certain horizontal distance from the centerline, to use the image space for context, as seen in Figure~\ref{fig:ctaResult}.
+For radii that by far exceed the vessel radius, there is no point in doing the curvicircular feature aggregation. Instead, standard MIP and MINIP projections from a single direction are shown in pixels beyond a certain horizontal distance from the centerline, to use the image space for context, as seen in Figure~\ref{fig:cfaResult}.
 \begin{figure*}[htb]
   \centering
-  \includegraphics[width=1.0\textwidth]{cta_overview.png}
-  \caption{\label{fig:ctaOverview} }
+  \includegraphics[width=1.0\textwidth]{cfa_overview.png}
+  \caption{\label{fig:cfaOverview} Curvicircular Feature Aggregation takes samples on circular rays around the vessel centerline, and presents the MIP and MINIP projections of these aggregated results for each radius at each position along the centerline in a single image.}
+  \cite{mistelbauer2013vessel}
 \end{figure*}
 Another feature of the technique is to display a measure of stability of the centerline estimation at each given point along the vessel. This is done by computing the variance of values sampled in the neighborhood of each centerline point, to determine the local uniformity around it. If there is a high variance, i.e. low stability, the centerline estimation may deviate from the actual centerline in the vessel volume data. The variance is mapped to a color range from red to blue, red meaning higher variance, i.e. less stability.
 
