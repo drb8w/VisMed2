@@ -1,6 +1,6 @@
 \section{Skeletonization}
 
-Skeletonization can be seen either as integral part of surface visualization techniques or as an separate preprocessing step. Actually both is true according to the observed methods as some surface visualization techniques compute the skeleton in an internal stage of the process. Here we focus on the preprocessing step.
+Skeletonization can be seen either as an integral part of surface visualization techniques or as a separate preprocessing step. Actually both is true according to the observed methods as some surface visualization techniques compute the skeleton in an internal stage of the process. Here we focus on the preprocessing step.
 Skeletonization here is actually a reduction of dimension on the segmentation data. We actually reduce the volumetric segmentation data or two dimensional surface data to a one dimensional graph structure. Nevertheless the graph itself is embedded in a 3D space.
 The skeleton itself is a compact representation of 2D or 3D shapes that preserves many of the topological and size characteristics \cite{alexandru2002augmented}. Bium et al.~\cite{bium1964transformation} provides a common definition of the skeleton as the locus of centers of maximal discs (or spheres) contained in the original object.
 
@@ -35,7 +35,7 @@ As this approach do only respect the maximum distance from the boundary in the t
 	\label{fig:LeafTilingAndDistanceTransform}
 \end{figure} 
 
-Strzodka et al.~\cite{strzodka2004generalized} further accelerates the generation of the 2D skeleton using graphics hardware. Based on the concept of \emph{footprint splatting} the combination of different spalts produces a weighted distance transform in real time. \emph{Distance splatting} uses OpenGL fragments to propagate signals in the \emph{feature distance transform} (FDT). The FDT follows the previously described concept that skeletons are defined as the set of centers of maximal balls contained in the boundary of the observed object. Tiling of the original object further speeds up the process. Results are pixel-level correct skeletons for all boundaries and thresholds, as shown in figure \ref{fig:LeafTilingAndDistanceTransform}.
+Strzodka et al.~\cite{strzodka2004generalized} further accelerates the generation of the 2D skeleton using graphics hardware. Based on the concept of \emph{footprint splatting} the combination of different spalts produces a weighted distance transform in real time. \emph{Distance splatting} uses \emph{OpenGL} fragments to propagate signals in the \emph{feature distance transform} (FDT). The FDT follows the previously described concept that skeletons are defined as the set of centers of maximal balls contained in the boundary of the observed object. Tiling of the original object further speeds up the process. Results are pixel-level correct skeletons for all boundaries and thresholds, an example tiling and skeleton is shown in figure \ref{fig:LeafTilingAndDistanceTransform}.
 
 
 % reduction of one dimension 

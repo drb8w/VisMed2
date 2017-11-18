@@ -7,3 +7,12 @@
 *.blg
 *.brf
 *.lbl
+STAR_Report _VascularVisualization/SurfaceVisualization.tex
+STAR_Report _VascularVisualization.rar
+STAR_Report _VascularVisualization/Conclusions.tex
+STAR_Report _VascularVisualization/DirectVisualization.tex
+STAR_Report _VascularVisualization/Introduction.tex
+STAR_Report _VascularVisualization/Skeletonization.tex
+STAR_Report _VascularVisualization/STAR_Report_References.bib
+STAR_Report _VascularVisualization/STAR_Report_VisMed2_EuroVis.pdf
+STAR_Report _VascularVisualization/STAR_Report_VisMed2_EuroVis.tex
