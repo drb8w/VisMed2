@@ -1,0 +1,62 @@
+
+\documentclass[english, paper=a4]{scrartcl}
+\usepackage[utf8]{inputenc}
+%images
+\usepackage{graphicx}
+%math
+\usepackage{amsmath,amssymb}
+%code
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{enumitem}
+
+
+\begin{document}
+
+\graphicspath{{images/}}
+
+
+%%------------------------------------------------------
+\title{Project Report: Direct Volume Rendering Techniques for Cardiovascular Visualization } 
+\subtitle{Visualization of Medical Data 2, 2017W} 
+\author{Christian Br{\"a}ndle \& Niko Leopold}
+
+\maketitle
+
+%%------------------------------------------------------
+
+\section{Motivation}
+
+In the STAR report we have discussed various techniques related to the visualization of cardiovascular structures. We have covered both model-based and model-free approaches. Model-based mesh generation follows some more restrictive assumptions about the vascular structure whereas model-free methods such as direct volume rendering tries to capture as much original information as possible. Model-based techniques are often used for treatment planning and basic anatomical overview, whereas model-free methods are required for precise diagnostics.
+
+We decided that for the project implementation we wanted to focus on direct volume rendering. The goal was to effectively visualize thin vessel structures and if possible even their narrowings due to stenoses etc. At first we considered to implement the automatic transfer function specification for visual emphasis of coronary artery plaque by Glasser et al.~\cite{glasser2010automatic}. However we realized that due to time constraints this would not be possible as it involves a large number of different pipelines stages. We thus decided to implement instant volume visualization using maximum intensity difference accumulation by Bruckner and Gr{\"o}ller~\cite{bruckner2009instant}.
+
+\section{Framework}
+
+At first we considered using the VTK (Visualization ToolKit) framework as well as the MITK (Medical Imaging Interaction Toolkit) framework. However we soon realized that it is hard to implement a custom volume renderer in these frameworks, and thus decided to fall back to our own implementation. For this we reused an old Qt framework from the vis1 course that had simple GPU direct volume rendering implemented with simple alpha compositing, but with no proper interaction, no transfer functions and no shading.
+
+The goal was to extend this framework with
+\begin{itemize}
+\item More compositing methods: Maximum Intensity Projection (MIP), Minimum Intensity Projection (MINIP), Average Intensity Projection (AIP) as well as Maximum Intensity Difference Accumulation (MIDA)
+\item Interactive controls
+\item Gradient-based shading
+\item Customizable transfer functions
+\end{itemize}
+
+
+
+\clearpage
+
+\bibliographystyle{plain}
+\bibliography{lit}
+%% References can be stored in a seperate bib-file (see lit.bib). References, that are cited in the report using \cite are automatically added to the reference list. For more information: http://www.bibtex.org/Using/
+%%------------------------------------------------------
+\end{document}
