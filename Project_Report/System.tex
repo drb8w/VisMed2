@@ -21,6 +21,15 @@ The power of 3DSlicer lies in the handy user interface and the amount of resourc
 Although very nice at user level we do not discover a developer guide that assists us well through the internals of 3DSlicer.
 As our goal was not to use the application but rather to implement renderers for example we hadn't the impression that this would be possible in reasonable amount of time.
 
+\subsubsection{\emph{MAGIX} Dataset in 3DSlicer}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{Slicer3D_MAGIX_01.png} \\
+	\caption{ \emph{MAGIX}\cite{gimias_sampledata_2018} dataset visualized with \emph{Slicer3D}.}
+	\label{fig:Slicer3D_MAGIX_01}
+\end{figure}
+
 \subsection{MITK}
 
 \blockquote{The Medical Imaging Interaction Toolkit (MITK) is a free open-source software system for development of interactive medical image processing software. MITK combines the Insight Toolkit (ITK) and the Visualization Toolkit (VTK) with an application framework \cite{MITK_2018}.}
@@ -32,6 +41,15 @@ Also DICOM loaders are integrated and we managed to visualize one of our demo da
 As we are interested in writing an own renderer and as MITK uses VTK to visualize data, we refer here to the VTK section that describes our experience with VTK in more detai.
 
 %\subsubsection{MITK Plugin}
+
+\subsubsection{\emph{CARDIX} Dataset in MITK}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{MITK_CARDIX_01.png} \\
+	\caption{ \emph{CARDIX}\cite{gimias_sampledata_2018} dataset visualized with \emph{MITK}.}
+	\label{fig:MITK_CARDIX_01}
+\end{figure}
 
 %\section{Frameworks}
 
@@ -54,13 +72,24 @@ The VTK way of processing data is through VTK Filters. The philosophy is that fi
 To implement our direct volume rendering approach the only easy way would have been to dynamically adapt our DICOM data according to the settings of MIDA and the current view direction and further use a built-in volume renderer like RayCast Mapper to visualize the result.
 As we would have to implement somehow a reverse version of MIDA and as the data transformation would have been a seperate step in the processing chain we decided not to use VTK Filters at all.
 
-\subsubsection{Renderer Data with VTK Mappers}
+\subsubsection{Render Data with VTK Mappers}
 
 In VTK renderer are called Mappers as they provide the ability to map a given dataset to a given device. While it is possible to override specific Mappers it is not straight forward to interfere with the renderer at OpenGL-level. 
 
 For this reason VTK introduced VTK shaders, that are based on structured OpenGL shaders. While this give access to GLSL shaders the structure of the shaders have to follow the VTK guidelines. That include string replacement of VTK specific shading commands within the OpenGL shader.
 
 As we haven't found appropriate information on what for string replacements exist, how they should be used and how they interact with the rest of the VTK application we decided not to use an OpenGL shader based on the VTK framework.
+
+\subsubsection{VTK Example Application}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{VTK_Image_Renderer_02_II.png} \\
+	\caption{ \emph{CARDIX} \cite{gimias_sampledata_2018} dataset rendered from VTI file with VTK Raycast Mapper.}
+	\label{fig:VTK_Image_Renderer_02_II}
+\end{figure}
+
+
 
 %\subsection{MITK Plugin}
 
@@ -92,13 +121,75 @@ The goal was to extend this framework with
 	\item Customizable transfer functions
 \end{itemize}
 
-\section{Processing Chain}
+%\section{MIDA Processing Chain}
 
 % Surface Visualization Chain ?
+% MIDA Chain
+% To process our data with MIDA we utilize VTK and use its VTI ...
 
-MIDA Chain
+%\section{MIDA Algorithm}
+
+\section{MIDA  - Maximum Intensity Difference Accumulation}
+
+MIDA is a compositing technique for Direct Volume Rendering (DVR) and was first published from Bruckner et al.~\cite{bruckner2009instant}.
+It combines the advantage of Maximum Intensity Projection (MIP), where important structure shine through all data, 
+with the advantage from traditinal DVR, where depth cues stem from color and opacity accumulation.
+
+The advantages and disadvantages are more precisely:
+
+\begin{itemize}
+\item Maximum Intensity Projection (MIP) \\
++ MIP does not require a transfer function .\\
+- The spatial context in MIP visualization is lost. \\
+\item Direct Volume Rendering (DVR)\\
++ DVR accumulates color and opacity, it uses mostly gradient-based shading \\
+- DVR needs appropriate transfer function, otherwise crucial information won't be visualized well 
+  and important features will disapear in fog or will be occluded by unimporant data.
+\end{itemize}
+
+\subsection{MIDA - Accumulation}
+
+MIDA is rendered with Front-to-Back Traversal. 
+It focus the interest on a ray where the maximum are and values change from low to high, where the interest is represented as $\delta_i$.
+It overrides the occlusion relationship when a new maximum is encountered, where the weights are defined by $beta_i$.
+
+\begin{eqnarray}
+%\begin{aligned}
+\delta_i = & \begin{cases}
+f_{P_i} - f_{max_i}, & \text{if $f_{P_i} > f_{max_i}$}.\\
+0, & \text{otherwise}.
+\end{cases} \\
+\beta_i = & 1 - \delta_i \\
+c_i = & \beta_i c_{i-1} + (1 - \beta_i \alpha_{i-1}) \alpha(f_{P_i})c(f_{P_i}) \\
+\alpha_i = & \beta_i \alpha_{i-1} + (1 - \beta_i \alpha_{i-1}) \alpha(f_{P_i}) 
+%\end{aligned}
+\label{eqn:MIDA}
+\end{eqnarray}
+
+Color $c_i$ and opacity $\alpha_i$ are computed the same way as for normal DVR, except that there is the additional weighting with $\beta_i$, see equation \eqref{eqn:MIDA}.
+
+\subsection{MIDA - Interpolation}
+
+MIDA can interpolate between it's two extremes, namely DVR and MIP in a continuous fashion.
+To achieve this a interpolation variable $\gamma$ is defined that ranges from $-1$ to $1$, i.e. $\gamma=[-1,1]$.
+As interpoaltion is different in the direction of DVR compared to the direction of MIP we treat each case accordingly. 
+
+\subsubsection{MIDA to DVR}
+
+Interpolation is done in 3D space as described before. It is based on the modulation of previously accumulated color and 
+opacity.
 
 
-\section{Algorithm}
+\subsubsection{MIDA to MIP}
 
-MIDA
+In contrast interpolation here is done in image space between color and opacity values of MIDA and 
+color and opacity values of MIP. 
+
+
+\subsection{MIDA - Shading \& Classification}
+
+The magnitude of gradient to interpolate between shaded and unshaded color. This is due to the fact that shading expose artifacts if it is based on gradient directions with low magnitude like gradients from noise.
+
+The used transfer function is limited to brightness and contrast adjustment using the common window/level approach.
+
+
