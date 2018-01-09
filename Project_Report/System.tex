@@ -1,4 +1,4 @@
-\section{System}
+\section{Medical Visualization System}
 
 As our original goal was to use an existing application and enhance it with certain abilities we researched the web to find open source applications that are cross platform and run under Windows and Linux environments.
 As this is a quite restrictive approach we actually found a lot more applications and frameworks but exclude them for the reasons above.
@@ -21,7 +21,7 @@ The power of 3DSlicer lies in the handy user interface and the amount of resourc
 Although very nice at user level we do not discover a developer guide that assists us well through the internals of 3DSlicer.
 As our goal was not to use the application but rather to implement renderers for example we hadn't the impression that this would be possible in reasonable amount of time.
 
-\subsubsection{\emph{MAGIX} Dataset in 3DSlicer}
+%\subsubsection{\emph{MAGIX} Dataset in 3DSlicer}
 
 \begin{figure}[h]
 	\centering
@@ -30,7 +30,10 @@ As our goal was not to use the application but rather to implement renderers for
 	\label{fig:Slicer3D_MAGIX_01}
 \end{figure}
 
-\subsection{MITK}
+As could be seen in figure \ref{fig:Slicer3D_MAGIX_01}, we visualized one of our example datasets, \emph{MAGIX} with volume rendering provided by 3DSlicer.
+
+
+\subsection{MITK - The Medical Imaging Interaction Toolkit}
 
 \blockquote{The Medical Imaging Interaction Toolkit (MITK) is a free open-source software system for development of interactive medical image processing software. MITK combines the Insight Toolkit (ITK) and the Visualization Toolkit (VTK) with an application framework \cite{MITK_2018}.}
 
@@ -42,7 +45,7 @@ As we are interested in writing an own renderer and as MITK uses VTK to visualiz
 
 %\subsubsection{MITK Plugin}
 
-\subsubsection{\emph{CARDIX} Dataset in MITK}
+%\subsubsection{\emph{CARDIX} Dataset in MITK}
 
 \begin{figure}[h]
 	\centering
@@ -51,9 +54,11 @@ As we are interested in writing an own renderer and as MITK uses VTK to visualiz
 	\label{fig:MITK_CARDIX_01}
 \end{figure}
 
+As could be seen in figure \ref{fig:MITK_CARDIX_01}, we visualized one of our example datasets, \emph{CARDIX} with volume rendering provided by the MITK application.
+
 %\section{Frameworks}
 
-\subsection{VTK}
+\subsection{VTK - The Visualization Toolkit}
 
 \blockquote{The Visualization Toolkit (VTK) is an open-source, freely available software system for 3D computer graphics, image processing, and visualization. It consists of a C++ class library and several interpreted interface layers including Tcl/Tk, Java, and Python. VTK supports a wide variety of visualization algorithms including scalar, vector, tensor, texture, and volumetric methods, as well as advanced modeling techniques such as implicit modeling, polygon reduction, mesh smoothing, cutting, contouring, and Delaunay triangulation. VTK has an extensive information visualization framework and a suite of 3D interaction widgets \cite{vtk_2018}.}
 
@@ -89,7 +94,7 @@ As we haven't found appropriate information on what for string replacements exis
 	\label{fig:VTK_Image_Renderer_02_II}
 \end{figure}
 
-
+As VTK prodides a lot of examples and tutorials on the usage of its framework we gave it a try and load a 3D image in form of a VTI file into a simple raycaster visualization. In figure \ref{fig:VTK_Image_Renderer_02_II} we see the \emph{CARDIX} \cite{gimias_sampledata_2018} dataset visualized with this base fazilities. As VTK also provide a script interface we also build $Tcl/Tk$ and tried the same visualization on a script base, which works perfectly fine. But as already stated before we left VTK behind as it does not support an easy integration of own OpenGL shaders.
 
 %\subsection{MITK Plugin}
 
