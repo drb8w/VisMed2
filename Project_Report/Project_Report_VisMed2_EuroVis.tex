@@ -1,0 +1,113 @@
+% ---------------------------------------------------------------------------
+% Author guideline and sample document for EG publication using LaTeX2e input
+% D.Fellner, v1.13, Jul 31, 2008
+
+\documentclass{egpubl}
+\usepackage{eurovis2018}
+\STAR_Eurovis
+% --- for  Annual CONFERENCE
+% \ConferenceSubmission   % uncomment for Conference submission
+% \ConferencePaper        % uncomment for (final) Conference Paper
+% \STAR                   % uncomment for STAR contribution
+% \Tutorial               % uncomment for Tutorial contribution
+% \ShortPresentation      % uncomment for (final) Short Conference Presentation
+% \Areas                  % uncomment for Areas contribution
+% \MedicalPrize           % uncomment for Medical Prize contribution
+% \Education              % uncomment for Education contribution
+%
+% --- for  CGF Journal
+% \JournalSubmission    % uncomment for submission to Computer Graphics Forum
+% \JournalPaper         % uncomment for final version of Journal Paper
+%
+% --- for  EG Workshop Proceedings
+% \WsSubmission    % uncomment for submission to EG Workshop
+% \WsPaper         % uncomment for final version of EG Workshop contribution
+%
+\electronicVersion % can be used both for the printed and electronic version
+
+% !! *please* don't change anything above
+% !! unless you REALLY know what you are doing
+% ------------------------------------------------------------------------
+
+% for including postscript figures
+% mind: package option 'draft' will replace PS figure by a filname within a frame
+\ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
+\else \usepackage[dvips]{graphicx} \fi
+
+\PrintedOrElectronic
+
+% prepare for electronic version of your document
+\usepackage{t1enc,dfadobe}
+
+\usepackage{egweblnk}
+\usepackage{cite}
+
+\usepackage{comment}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage[autostyle]{csquotes}  
+
+\newcommand{\pvec}[1]{\vec{#1}\mkern2mu\vphantom{#1}}
+
+%opening
+%\title{Survey of Vascular Visualization Techniques}
+%\author[C. Br{\"a}ndle \& N. Leopold]{Christian Br{\"a}ndle and Niko Leopold\\TU Vienna\\}
+
+\title{Project Report: Direct Volume Rendering Techniques for Cardiovascular Visualization} 
+%\subtitle{Visualization of Medical Data 2, 2017W} 
+\author{Christian Br{\"a}ndle \& Niko Leopold \\ Visualization of Medical Data 2, 2017W}
+
+
+\begin{document}
+
+\graphicspath{{images/}}
+
+\maketitle
+
+\keywords{Cardiovascular visualization, direct volume rendering, raytracing, transfer function design, intensity projection, curviplanar reformation, geometric modeling, vascular system modeling, convolution surfaces, implicit modeling, vessel reconstruction method, level sets, quad dominant meshes}
+
+\begin{abstract}
+%	The visualization of cardiovascular structures is an essential aspect of 
+%    the diagnostic process therapy planning. This survey provides an overview
+%    over recent advances in both model-free and model-based vascular visualization techniques.
+%    In the field of direct volume rendering, the focus is on advanced transfer function design to         
+%	highlight abnormalities of the vessel wall, as well as providing aggregated rotation independent
+%	2D projections and depth cues for effective diagnosis.
+%	Furthermore, improved model-based techniques are discussed, which provide 
+%	more accurate and effective sceletonization and surface reconstruction.
+		
+	\begin{classification} % according to http://www.acm.org/class/1998/
+		\CCScat{Computer Graphics}{I.3.3}{Picture/Image Generation}{};
+		\CCScat{Computer Graphics}{1.3.7}{Three-dimensional Graphics and Realism}{};
+		\CCScat{Computer Graphics}{1.3.5}{Computational Geometry and Object Modeling}{};
+		%\CCScat{Computer Graphics}{I.3.3}{Mesh, parametrization}{}
+	\end{classification}
+	
+\end{abstract}
+
+%-------------------------------------------------------------------------
+\input{Intro.tex}
+
+%-------------------------------------------------------------------------
+\input{Data.tex}
+
+%-------------------------------------------------------------------------
+\input{System.tex}
+
+%-------------------------------------------------------------------------
+\input{Conclusion.tex}
+
+%-------------------------------------------------------------------------
+%\bibliographystyle{plain}
+\bibliographystyle{eg-alpha}
+%\bibliographystyle{eg-alpha-doi}
+
+\bibliography{Project_Report_References}
+
+\end{document}

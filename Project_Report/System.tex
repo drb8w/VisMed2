@@ -1,0 +1,104 @@
+\section{System}
+
+As our original goal was to use an existing application and enhance it with certain abilities we researched the web to find open source applications that are cross platform and run under Windows and Linux environments.
+As this is a quite restrictive approach we actually found a lot more applications and frameworks but exclude them for the reasons above.
+
+Our search continued then with frameworks as we saw that there was no application that fulfilled our needs and was capable for rapid prototyping our system.
+With frameworks we unfortunately also didn't have more luck as the way the frameworks limit us in regards of data import and data visualization was as well not suitable to develop our chosen algoritm rapidly.
+
+In the end we utilize an OpenGL based visualion project to implement our algorithm there. Additional libraries to load DICOM data were searched but also there we experience several problems with codecs for instance.
+
+%\section{Applications}
+%
+%% Surface Visualization Apps?
+
+\subsection{3DSlicer}
+
+\blockquote{3D Slicer is an open source software platform for medical image informatics, image processing, and three-dimensional visualization \cite{3DSlicer_2018}.}
+
+The power of 3DSlicer lies in the handy user interface and the amount of resources how to deal with the program. Also youtube is a good source and this is how we lernt to do some basic tasks with 3DSlicer. It can also import several kinds of DICOM data, which is a prerequisite for our medical visualization application.
+
+Although very nice at user level we do not discover a developer guide that assists us well through the internals of 3DSlicer.
+As our goal was not to use the application but rather to implement renderers for example we hadn't the impression that this would be possible in reasonable amount of time.
+
+\subsection{MITK}
+
+\blockquote{The Medical Imaging Interaction Toolkit (MITK) is a free open-source software system for development of interactive medical image processing software. MITK combines the Insight Toolkit (ITK) and the Visualization Toolkit (VTK) with an application framework \cite{MITK_2018}.}
+
+In comparison to 3DSlicer MITK offers a better developer documentation and a description of the internal structure of MITK. Further it supplies guides how to create plugins or template based-projects that help to develop own applications with the MITK framework. Build instructions and a description of the render concept concludes our decision to take a closer look at this open source project.
+Also DICOM loaders are integrated and we managed to visualize one of our demo datasets in MITK. A downside was the stability of MITK as it happened several times that the application crashed after selecting DICOM data for volumetric visualization.
+
+% TODO: add ref to chapter
+As we are interested in writing an own renderer and as MITK uses VTK to visualize data, we refer here to the VTK section that describes our experience with VTK in more detai.
+
+%\subsubsection{MITK Plugin}
+
+%\section{Frameworks}
+
+\subsection{VTK}
+
+\blockquote{The Visualization Toolkit (VTK) is an open-source, freely available software system for 3D computer graphics, image processing, and visualization. It consists of a C++ class library and several interpreted interface layers including Tcl/Tk, Java, and Python. VTK supports a wide variety of visualization algorithms including scalar, vector, tensor, texture, and volumetric methods, as well as advanced modeling techniques such as implicit modeling, polygon reduction, mesh smoothing, cutting, contouring, and Delaunay triangulation. VTK has an extensive information visualization framework and a suite of 3D interaction widgets \cite{vtk_2018}.}
+
+As VTK was the central part of actual all medical visualization toolkits researched we wanted to use this framework for our application.  
+Several parts of the VTK chain were researched, as there are:
+
+\subsubsection{Loading Data with VTK Readers}
+%\subsubsection{VTK Reader}
+
+VTK also supports to load DICOM data via specific VTK Readers. As our data is formed of DICOM files we take a closer look at that feature. Unfortunately due to problems with the codec included in our DICOM data we were not able to load the data as we want to. As we haven't found a solution to fix this we come up with a preconversion step of DICOM data with MITK, as there it is possible to save DICOM data into a VTK 3D image.  
+
+
+\subsubsection{Processing Data with VTK Filters}
+
+The VTK way of processing data is through VTK Filters. The philosophy is that filters transform or combine data within a chain or network of coupled filters that finally provide an output to one or more VTK Mappers.
+To implement our direct volume rendering approach the only easy way would have been to dynamically adapt our DICOM data according to the settings of MIDA and the current view direction and further use a built-in volume renderer like RayCast Mapper to visualize the result.
+As we would have to implement somehow a reverse version of MIDA and as the data transformation would have been a seperate step in the processing chain we decided not to use VTK Filters at all.
+
+\subsubsection{Renderer Data with VTK Mappers}
+
+In VTK renderer are called Mappers as they provide the ability to map a given dataset to a given device. While it is possible to override specific Mappers it is not straight forward to interfere with the renderer at OpenGL-level. 
+
+For this reason VTK introduced VTK shaders, that are based on structured OpenGL shaders. While this give access to GLSL shaders the structure of the shaders have to follow the VTK guidelines. That include string replacement of VTK specific shading commands within the OpenGL shader.
+
+As we haven't found appropriate information on what for string replacements exist, how they should be used and how they interact with the rest of the VTK application we decided not to use an OpenGL shader based on the VTK framework.
+
+%\subsection{MITK Plugin}
+
+%\section{Library}
+
+% Surface Visualization Libs ?
+
+%\subsection{DICOM Reader}
+
+\subsection{Imbera DICOM Reader}
+
+%Imebra: a C++ Dicom library
+
+\blockquote{Imebra SDK is an open source C++ library that handles DICOM network messages and DICOM files \cite{imebra_dicom_sdk_2018}.}
+
+While Imbera seems to be the library we searched for to easily read DICOM data on multiple platforms in practice it fails because of the codec used in our \emph{CARDIX} dataset. We don't know if this is due to the open source version used as we haven't tried the commercial version instead and will leave this as an open point.
+
+%\subsection{VTK Reader}
+
+\section{OpenGL Application}
+
+At first we considered using the VTK (Visualization ToolKit) framework as well as the MITK (Medical Imaging Interaction Toolkit) framework. However we soon realized that it is hard to implement a custom volume renderer in these frameworks, and thus decided to fall back to our own implementation. For this we reused an old Qt framework from the vis1 course that had simple GPU direct volume rendering implemented with simple alpha compositing, but with no proper interaction, no transfer functions and no shading.
+
+The goal was to extend this framework with
+\begin{itemize}
+	\item More compositing methods: Maximum Intensity Projection (MIP), Minimum Intensity Projection (MINIP), Average Intensity Projection (AIP) as well as Maximum Intensity Difference Accumulation (MIDA)
+	\item Interactive controls
+	\item Gradient-based shading
+	\item Customizable transfer functions
+\end{itemize}
+
+\section{Processing Chain}
+
+% Surface Visualization Chain ?
+
+MIDA Chain
+
+
+\section{Algorithm}
+
+MIDA
