@@ -140,29 +140,31 @@ MIDA is a compositing technique for Direct Volume Rendering (DVR) and was first 
 It combines the advantage of Maximum Intensity Projection (MIP), where important structure shine through all data, 
 with the advantage from traditinal DVR, where depth cues stem from color and opacity accumulation.
 
-The advantages and disadvantages are more precisely:
+The advantages and disadvantagesof the combined technologies are more precisely:
 
 \begin{itemize}
 \item Maximum Intensity Projection (MIP) \\
 + MIP does not require a transfer function .\\
-- The spatial context in MIP visualization is lost. \\
+- The spatial context in MIP visualization is lost as the most important pixel just shine trough. \\
 \item Direct Volume Rendering (DVR)\\
-+ DVR accumulates color and opacity, it uses mostly gradient-based shading \\
++ DVR accumulates color and opacity, it uses mostly gradient-based shading. \\
+- Shading have to interpolate between unshaded and gradient-based shading according to gradient magnitude. \\ 
 - DVR needs appropriate transfer function, otherwise crucial information won't be visualized well 
   and important features will disapear in fog or will be occluded by unimporant data.
 \end{itemize}
 
 \subsection{MIDA - Accumulation}
+\label{sec:Accumulation}
 
-MIDA is rendered with Front-to-Back Traversal. 
-It focus the interest on a ray where the maximum are and values change from low to high, where the interest is represented as $\delta_i$.
-It overrides the occlusion relationship when a new maximum is encountered, where the weights are defined by $beta_i$.
+MIDA is rendered with front-to-back traversal order.  
+It focus the interest on the regions of a ray where the maximas are and values change from low to high. The amount of change is represented by $\delta_i$ for the $i$th sample position $P_i$ along the ray and $f_{max_i}$ represents the current maximum found.
+MIDA overrides the occlusion relationship of the previous accumulated color $c_i$ and opacity $\alpha_i$ when a new maximum is encountered, where the weights are defined by $beta_i$.
 
 \begin{eqnarray}
 %\begin{aligned}
 \delta_i = & \begin{cases}
-f_{P_i} - f_{max_i}, & \text{if $f_{P_i} > f_{max_i}$}.\\
-0, & \text{otherwise}.
+f_{P_i} - f_{max_i}, & \text{if $f_{P_i} > f_{max_i}$}\\
+0, & \text{otherwise}
 \end{cases} \\
 \beta_i = & 1 - \delta_i \\
 c_i = & \beta_i c_{i-1} + (1 - \beta_i \alpha_{i-1}) \alpha(f_{P_i})c(f_{P_i}) \\
@@ -171,7 +173,7 @@ c_i = & \beta_i c_{i-1} + (1 - \beta_i \alpha_{i-1}) \alpha(f_{P_i})c(f_{P_i}) \
 \label{eqn:MIDA}
 \end{eqnarray}
 
-Color $c_i$ and opacity $\alpha_i$ are computed the same way as for normal DVR, except that there is the additional weighting with $\beta_i$, see equation \eqref{eqn:MIDA}.
+It has to be noted that color $c_i$ and opacity $\alpha_i$ are computed the same way as for normal DVR, except that there is the additional weighting with $\beta_i$, see equation \eqref{eqn:MIDA}.
 
 \subsection{MIDA - Interpolation}
 
@@ -180,21 +182,40 @@ To achieve this a interpolation variable $\gamma$ is defined that ranges from $-
 As interpoaltion is different in the direction of DVR compared to the direction of MIP we treat each case accordingly. 
 
 \subsubsection{MIDA to DVR}
+\label{seq:MIDAtoDVR}
 
-Interpolation is done in 3D space as described before. It is based on the modulation of previously accumulated color and 
-opacity.
+As explained in section~\ref{sec:Accumulation} interpolation is done in 3D domain. It is based on the modulation of previously accumulated color and opacity. As $\gamma$ moves from MIDA to DVR we adjust the value of $\beta$ accordingly.
 
+\begin{equation}
+	\begin{aligned}
+	\beta_i = & \begin{cases}
+	1 - \delta_i (1 + \gamma), & \text{if $\gamma < 0$}\\
+	1 - \delta_i, & \text{otherwise}
+	\end{cases} \\
+	\end{aligned}
+\label{eqn:MIDAtoDVR}
+\end{equation}
+
+In that way equation \eqref{eqn:MIDAtoDVR} smoothly fade out high intensity values while $\gamma$ is reduced.
 
 \subsubsection{MIDA to MIP}
 
-In contrast interpolation here is done in image space between color and opacity values of MIDA and 
-color and opacity values of MIP. 
+Because regions of interest would be 'thinned' to just only one value shading in 3D domain would lead to artifacts when $\gamma$ is arriving at a value of $1$.
+So in contrast to section~\ref{seq:MIDAtoDVR} interpolation here is done in image domain between color and opacity values of MIDA and color and opacity values of MIP. 
 
 
 \subsection{MIDA - Shading \& Classification}
 
-The magnitude of gradient to interpolate between shaded and unshaded color. This is due to the fact that shading expose artifacts if it is based on gradient directions with low magnitude like gradients from noise.
+As shading expose artifacts if it is based on gradient directions with low magnitude like gradients from noise, the magnitude of gradient is used to interpolate between shaded and unshaded color.
 
-The used transfer function is limited to brightness and contrast adjustment using the common window/level approach.
+To classify, separate, highlight or point out certain parts of the dataset uses simple transfer functions.
+The used kind of transfer function is limited to brightness and contrast adjustment using the common window/level approach.
+Alternatively users can also selct values from color maps or the like if they have preferences on that.
+
+
+\section{Example Renderings}
+
+Here we want to list some example renderings that show the capability of MIDA.
+
 
 
