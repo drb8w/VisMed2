@@ -1,3 +1,22 @@
 \section{Conclusion}
 
+The lessons learned from \emph{Medical Visualization 2} were mainly about carefull considerations necessary when using a framework.
+While for a regular project the usage of a framework will pay off soon, it is different for a project of this size.
+
+First we were enthusiastic using applications made for medical visualization like \emph{3DSlicer} and \emph{The Medical Imaging Interaction Toolkit} (MITK). Their features are tremendous and they also provide possibilities to infer with the program at script or code level. There also exists nice dialogs for interation, like transfer function dialogs and the like.
+But the structure of the applications also limit the flexibility of what can be implemented and how it has to be implemented.
+We were not able to implement our OpenGL rendering algorithm in such a framework without spending too much time in understanding the internals for the system. While this doesn't mean that it is impossible to extend the rendering capabilities of those applications we are confinced that we would have spent too much time on understanding the internals and therefore that this track is too dangerous with our deadline in mind. 
+
+Then we inspect the \emph{Visualization ToolKit} (VTK), actually for two reasons. First VTK is the integral part of more or less all medical visualization applications observered and second VTK itself is also a good starting point for crafting own visualization applications.
+But soon we realized that also in VTK it is difficult to implement an own OpenGL-based renderer. More suitable for modifying data in a chain or netowrk of filters, VTK also put heavy restrictions on the creation of OpenGl-based renderers. The elements that should be used in a VTK OpenGL renderer are strings that are replaced internally to assemble a final version of the OpenGL shader. While we understand the flexibility of that approach it seems for us risky to use a weakly documented replacement strategy inside a OpenGL shader to accomplish our task at hand.  
+
+In regards of our DICOM files we experienced that they were not easily loadable by VTK or \emph{Imbera} because of codec issues. We assume that freely available DIOCM data intentionally suffers from strange codecs and low resolution to motivate people to buy commercial DICOM data instead.
+Especially for cardiovascular data we actually only found one source at \emph{GIMIAS} that supply such data for free.
+To read our data we did a workaround via MITK and VTK, namely we export our DICOM data in MITK as a 3D VTK image and import that VTI file into our own application. That way we could solve the codec problem.
+
+
+In the end we relied on our own implementation that was easier to extend for the task at hand. The only challenge was to include 
+
+
+
 \section{Outlook}
