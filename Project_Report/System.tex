@@ -62,7 +62,9 @@ As could be seen in figure \ref{fig:MITK_CARDIX_01}, we visualized one of our ex
 
 \blockquote{The Visualization Toolkit (VTK) is an open-source, freely available software system for 3D computer graphics, image processing, and visualization. It consists of a C++ class library and several interpreted interface layers including Tcl/Tk, Java, and Python. VTK supports a wide variety of visualization algorithms including scalar, vector, tensor, texture, and volumetric methods, as well as advanced modeling techniques such as implicit modeling, polygon reduction, mesh smoothing, cutting, contouring, and Delaunay triangulation. VTK has an extensive information visualization framework and a suite of 3D interaction widgets \cite{vtk_2018}.}
 
-As VTK was the central part of actual all medical visualization toolkits researched we wanted to use this framework for our application.  
+As VTK was the central part of actual all medical visualization toolkits researched we wanted to use this framework for our application.
+Our resources for learning VTK were \emph{The Visualization Toolkit}\cite{schroeder2004visualization}, \emph{The VTK Users's Guide}\cite{avila2010vtk} and of course the VTK webpage \cite{vtk_2018}.
+
 Several parts of the VTK chain were researched, as there are:
 
 \subsubsection{Loading Data with VTK Readers}
@@ -219,15 +221,26 @@ Here we want to list some example renderings that show the capability of MIDA.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.45\textwidth]{VIS1_Alpha_CARDIX_01.png} \\
-	\caption{ \emph{CARDIX}\cite{gimias_sampledata_2018} dataset visualized with \emph{MIDA}.}
-	\label{fig:VIS1_Alpha_CARDIX_01}
+	\includegraphics[width=0.35\textwidth]{MIDA_CARDIX_03.png} \\
+	\caption{ \emph{CARDIX}\cite{gimias_sampledata_2018} dataset visualized with \emph{MIDA}. From top to bottom: DVR, MIDA, MIP.}
+	\label{fig:MIDA_CARDIX_03}
 \end{figure}
 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.45\textwidth]{VIS1_Alpha_MAGIX_01.png} \\
-	\caption{ \emph{MAGIX}\cite{gimias_sampledata_2018} dataset visualized with \emph{MIDA}.}
-	\label{fig:VIS1_Alpha_MAGIX_01}
+	\includegraphics[width=0.35\textwidth]{MIDA_MAGIX_02.png} \\
+	\caption{ \emph{MAGIX}\cite{gimias_sampledata_2018} dataset visualized with \emph{MIDA}. From top to bottom: DVR, MIDA, MIP.}
+	\label{fig:MIDA_MAGIX_02}
 \end{figure}
+
+In figure \ref{fig:MIDA_CARDIX_03} and \ref{fig:MIDA_MAGIX_02} we can see the advantage of MIDA compared to DVR and MIP rendering. MIDA highlights important structures while not loosing a feeling of depth in the corresponding images.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{MIDA_Angio_02.png} \\
+	\caption{ \emph{Angio}\cite{gimias_sampledata_2018} dataset visualized with \emph{MIDA}. For each picture different transfer function settings are used.}
+	\label{fig:MIDA_Angio_02}
+\end{figure}
+
+Figure \ref{fig:MIDA_Angio_02} shows several transfer function settings at the same MIDA-level. As seen certain coloring greatly enhance the visual perception of blood vessels and seperate them better from background information.
