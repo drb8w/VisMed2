@@ -4,9 +4,9 @@ As our original goal was to use an existing application and enhance it with cert
 As this is a quite restrictive approach we actually found a lot more applications and frameworks but exclude them for the reasons above.
 
 Our search continued then with frameworks as we saw that there was no application that fulfilled our needs and was capable for rapid prototyping our system.
-With frameworks we unfortunately also didn't have more luck as the way the frameworks limit us in regards of data import and data visualization was as well not suitable to develop our chosen algoritm rapidly.
+With frameworks we unfortunately also didn't have more luck as the way the frameworks limit us in regards of data import and data visualization was as well not suitable to develop our chosen algorithm rapidly.
 
-In the end we utilize an OpenGL based visualion project to implement our algorithm there. Additional libraries to load DICOM data were searched but also there we experience several problems with codecs for instance.
+In the end we utilize an OpenGL based visualization project to implement our algorithm there. Additional libraries to load DICOM data were searched but also there we experience several problems with codecs for instance.
 
 %\section{Applications}
 %
@@ -41,7 +41,7 @@ In comparison to 3DSlicer MITK offers a better developer documentation and a des
 Also DICOM loaders are integrated and we managed to visualize one of our demo datasets in MITK. A downside was the stability of MITK as it happened several times that the application crashed after selecting DICOM data for volumetric visualization.
 
 % TODO: add ref to chapter
-As we are interested in writing an own renderer and as MITK uses VTK to visualize data, we refer here to the VTK section that describes our experience with VTK in more detai.
+As we are interested in writing an own renderer and as MITK uses VTK to visualize data, we refer here to the VTK section that describes our experience with VTK in more detail.
 
 %\subsubsection{MITK Plugin}
 
@@ -63,21 +63,21 @@ As could be seen in figure \ref{fig:MITK_CARDIX_01}, we visualized one of our ex
 \blockquote{The Visualization Toolkit (VTK) is an open-source, freely available software system for 3D computer graphics, image processing, and visualization. It consists of a C++ class library and several interpreted interface layers including Tcl/Tk, Java, and Python. VTK supports a wide variety of visualization algorithms including scalar, vector, tensor, texture, and volumetric methods, as well as advanced modeling techniques such as implicit modeling, polygon reduction, mesh smoothing, cutting, contouring, and Delaunay triangulation. VTK has an extensive information visualization framework and a suite of 3D interaction widgets \cite{vtk_2018}.}
 
 As VTK was the central part of actual all medical visualization toolkits researched we wanted to use this framework for our application.
-Our resources for learning VTK were \emph{The Visualization Toolkit}\cite{schroeder2004visualization}, \emph{The VTK Users's Guide}\cite{avila2010vtk} and of course the VTK webpage \cite{vtk_2018}.
+Our resources for learning VTK were \emph{The Visualization Toolkit}\cite{schroeder2004visualization}, \emph{The VTK User's Guide}\cite{avila2010vtk} and of course the VTK web page \cite{vtk_2018}.
 
 Several parts of the VTK chain were researched, as there are:
 
 \subsubsection{Loading Data with VTK Readers}
 %\subsubsection{VTK Reader}
 
-VTK also supports to load DICOM data via specific VTK Readers. As our data is formed of DICOM files we take a closer look at that feature. Unfortunately due to problems with the codec included in our DICOM data we were not able to load the data as we want to. As we haven't found a solution to fix this we come up with a preconversion step of DICOM data with MITK, as there it is possible to save DICOM data into a VTK 3D image.  
+VTK also supports to load DICOM data via specific VTK Readers. As our data is formed of DICOM files we take a closer look at that feature. Unfortunately due to problems with the codec included in our DICOM data we were not able to load the data as we want to. As we haven't found a solution to fix this we come up with a pre -conversion step of DICOM data with MITK, as there it is possible to save DICOM data into a VTK 3D image.  
 
 
 \subsubsection{Processing Data with VTK Filters}
 
 The VTK way of processing data is through VTK Filters. The philosophy is that filters transform or combine data within a chain or network of coupled filters that finally provide an output to one or more VTK Mappers.
 To implement our direct volume rendering approach the only easy way would have been to dynamically adapt our DICOM data according to the settings of MIDA and the current view direction and further use a built-in volume renderer like RayCast Mapper to visualize the result.
-As we would have to implement somehow a reverse version of MIDA and as the data transformation would have been a seperate step in the processing chain we decided not to use VTK Filters at all.
+As we would have to implement somehow a reverse version of MIDA and as the data transformation would have been a separate step in the processing chain we decided not to use VTK Filters at all.
 
 \subsubsection{Render Data with VTK Mappers}
 
@@ -92,11 +92,11 @@ As we haven't found appropriate information on what for string replacements exis
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{VTK_Image_Renderer_02_II.png} \\
-	\caption{ \emph{CARDIX} \cite{gimias_sampledata_2018} dataset rendered from VTI file with VTK Raycast Mapper.}
+	\caption{ \emph{CARDIX} \cite{gimias_sampledata_2018} dataset rendered from VTI file with VTK RayCast Mapper.}
 	\label{fig:VTK_Image_Renderer_02_II}
 \end{figure}
 
-As VTK prodides a lot of examples and tutorials on the usage of its framework we gave it a try and load a 3D image in form of a VTI file into a simple raycaster visualization. In figure \ref{fig:VTK_Image_Renderer_02_II} we see the \emph{CARDIX} \cite{gimias_sampledata_2018} dataset visualized with this base fazilities. As VTK also provide a script interface we also build $Tcl/Tk$ and tried the same visualization on a script base, which works perfectly fine. But as already stated before we left VTK behind as it does not support an easy integration of own OpenGL shaders.
+As VTK provides a lot of examples and tutorials on the usage of its framework we gave it a try and load a 3D image in form of a VTI file into a simple ray caster visualization. In figure \ref{fig:VTK_Image_Renderer_02_II} we see the \emph{CARDIX} \cite{gimias_sampledata_2018} dataset visualized with this base facilities As VTK also provide a script interface we also build $Tcl/Tk$ and tried the same visualization on a script base, which works perfectly fine. But as already stated before we left VTK behind as it does not support an easy integration of own OpenGL shaders.
 
 %\subsection{MITK Plugin}
 
@@ -118,7 +118,7 @@ While Imbera seems to be the library we searched for to easily read DICOM data o
 
 \subsection{OpenGL Application}
 
-As stated before we considered using the VTK (Visualization ToolKit) framework as well as the MITK (Medical Imaging Interaction Toolkit) framework. However we soon realized that it is hard to implement a custom volume renderer in these frameworks, and thus decided to fall back to our own implementation. For this we reused an old Qt framework from the vis1 course that had simple GPU direct volume rendering implemented with simple alpha compositing, but with no proper interaction, no transfer functions and no shading.
+As stated before we considered using the VTK (Visualization ToolKit) framework as well as the MITK (Medical Imaging Interaction Toolkit) framework. However we soon realized that it is hard to implement a custom volume renderer in these frameworks, and thus decided to fall back to our own implementation. For this we reused an old Qt framework from the \emph{Visualization 1} course that had simple GPU direct volume rendering implemented with simple alpha compositing, but with no proper interaction, no transfer functions and no shading.
 
 The goal was to extend this framework with
 \begin{itemize}
@@ -140,9 +140,9 @@ The goal was to extend this framework with
 
 MIDA is a compositing technique for Direct Volume Rendering (DVR) and was first published from Bruckner et al.~\cite{bruckner2009instant}.
 It combines the advantage of Maximum Intensity Projection (MIP), where important structure shine through all data, 
-with the advantage from traditinal DVR, where depth cues stem from color and opacity accumulation.
+with the advantage from traditional DVR, where depth cues stem from color and opacity accumulation.
 
-The advantages and disadvantagesof the combined technologies are more precisely:
+The advantages and disadvantages of the combined technologies are more precisely:
 
 \begin{itemize}
 \item Maximum Intensity Projection (MIP) \\
@@ -152,14 +152,14 @@ The advantages and disadvantagesof the combined technologies are more precisely:
 + DVR accumulates color and opacity, it uses mostly gradient-based shading. \\
 - Shading have to interpolate between unshaded and gradient-based shading according to gradient magnitude. \\ 
 - DVR needs appropriate transfer function, otherwise crucial information won't be visualized well 
-  and important features will disapear in fog or will be occluded by unimporant data.
+  and important features will disappear in fog or will be occluded by unimportant data.
 \end{itemize}
 
 \subsection{MIDA - Accumulation}
 \label{sec:Accumulation}
 
 MIDA is rendered with front-to-back traversal order.  
-It focus the interest on the regions of a ray where the maximas are and values change from low to high. The amount of change is represented by $\delta_i$ for the $i$th sample position $P_i$ along the ray and $f_{max_i}$ represents the current maximum found.
+It focus the interest on the regions of a ray where the maxima are and values change from low to high. The amount of change is represented by $\delta_i$ for the $i$th sample position $P_i$ along the ray and $f_{max_i}$ represents the current maximum found.
 MIDA overrides the occlusion relationship of the previous accumulated color $c_i$ and opacity $\alpha_i$ when a new maximum is encountered, where the weights are defined by $beta_i$.
 
 \begin{eqnarray}
@@ -181,7 +181,7 @@ It has to be noted that color $c_i$ and opacity $\alpha_i$ are computed the same
 
 MIDA can interpolate between it's two extremes, namely DVR and MIP in a continuous fashion.
 To achieve this a interpolation variable $\gamma$ is defined that ranges from $-1$ to $1$, i.e. $\gamma=[-1,1]$.
-As interpoaltion is different in the direction of DVR compared to the direction of MIP we treat each case accordingly. 
+As interpolation is different in the direction of DVR compared to the direction of MIP we treat each case accordingly. 
 
 \subsubsection{MIDA to DVR}
 \label{seq:MIDAtoDVR}
@@ -212,7 +212,7 @@ As shading expose artifacts if it is based on gradient directions with low magni
 
 To classify, separate, highlight or point out certain parts of the dataset uses simple transfer functions.
 The used kind of transfer function is limited to brightness and contrast adjustment using the common window/level approach.
-Alternatively users can also selct values from color maps or the like if they have preferences on that.
+Alternatively users can also select values from color maps or the like if they have preferences on that.
 
 
 \section{Example Renderings}
@@ -243,4 +243,4 @@ In figure \ref{fig:MIDA_CARDIX_03} and \ref{fig:MIDA_MAGIX_02} we can see the ad
 	\label{fig:MIDA_Angio_02}
 \end{figure}
 
-Figure \ref{fig:MIDA_Angio_02} shows several transfer function settings at the same MIDA-level. As seen certain coloring greatly enhance the visual perception of blood vessels and seperate them better from background information.
+Figure \ref{fig:MIDA_Angio_02} shows several transfer function settings at the same MIDA-level. As seen certain coloring greatly enhance the visual perception of blood vessels and separate them better from background information.
