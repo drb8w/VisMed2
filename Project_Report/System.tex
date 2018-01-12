@@ -16,10 +16,10 @@ In the end we utilize an OpenGL-based visualization project to implement our alg
 
 \blockquote{3D Slicer is an open source software platform for medical image informatics, image processing, and three-dimensional visualization \cite{3DSlicer_2018}.}
 
-The power of 3DSlicer lies in the handy user interface and the amount of resources how to deal with the program. Also youtube is a good source and where we lernt to do some basic tasks with 3DSlicer. It can also import several kinds of DICOM data, which is a prerequisite for our medical visualization application.
+The power of 3DSlicer lies in the handy user interface and the amount of resources how to deal with the program. Also youtube is a good source and where we lernt to do some basic tasks with 3DSlicer. The tool can also import several kinds of DICOM data, which is a prerequisite for our medical visualization application.
 
-Although very nice at user level we do not discover a developer guide that assists us well through the internals of 3DSlicer.
-As our goal was not to use the application but rather to implement renderers for example we hadn't the impression that this would be possible in reasonable amount of time.
+Although very nice at user level we do not discover a developer guide that guides us well through the internals of 3DSlicer.
+As our goal was not to use the application but rather to implement renderers we hadn't the impression that this would be possible in reasonable amount of time.
 
 %\subsubsection{\emph{MAGIX} Dataset in 3DSlicer}
 
@@ -37,7 +37,7 @@ As could be seen in figure \ref{fig:Slicer3D_MAGIX_01}, we visualized one of our
 
 \blockquote{The Medical Imaging Interaction Toolkit (MITK) is a free open-source software system for development of interactive medical image processing software. MITK combines the Insight Toolkit (ITK) and the Visualization Toolkit (VTK) with an application framework \cite{MITK_2018}.}
 
-In comparison to 3DSlicer MITK offers a better developer documentation and a description of the internal structure of MITK itself. Further it supplies guides how to create plugins or template based-projects that help to develop own applications with the MITK framework. Build instructions and a description of the render concept concludes our decision to take a closer look at this open source project.
+In comparison to 3DSlicer MITK offers a better developer documentation and a description of the internal structure of MITK itself. Further it supplies guides how to create plugins or template-based projects that help to develop own applications with the MITK framework. Build instructions and a description of the render concept concludes our decision to take a closer look at this open source project.
 Also DICOM loaders are integrated and we managed to visualize one of our demo datasets in MITK. A downside was the stability of MITK as it happened several times that the application crashed after selecting DICOM data for volumetric visualization.
 
 % TODO: add ref to chapter
